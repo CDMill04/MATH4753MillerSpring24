@@ -1,0 +1,81 @@
+---
+title: "What does this package entail?"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{What does this package entail?}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MATH4753MillerSpring24)
+```
+
+# Introduction
+This package is a sum of important and impactful functions and one set of data that I built or used in R over the course of my semester in MATH 4753. I will go over these functions in a bit of detail and cover the basics on how to use them.
+
+# Functions
+These are the functions that can be found throughout this package.
+
+## Function One: myquad
+myquad is a very basic function that takes a number and uses a quadratic formula to spit out an answer. It is not very complex, and has few use cases.
+```{r}
+myquad(5)
+myquad(16)
+```
+
+## Function Two: myplot
+myplot is a little more useful, taking a quadratic linear equation and turining it into the beginnings of a plot, with the intercept the most basic output possible. In addition to other functions to enhance its graph, it can form the base of a decent analyisis.
+```{r}
+#For this example, as myplot is built to be used with a dataset, I will use the built in FIREDAM dataset
+quad.lm = lm(fire$DISTANCE~fire$DAMAGE + I(fire$DAMAGE^2), data = fire)
+myplot(x = quad.lm, y = 2)
+```
+
+## Function Three: mybin
+mybin (mybinom is the name of the file that mybin is in, mybin is the actual function) is a function of a binomial distribution that maps out a binomial and its barplot. It can be quite useful with basic binomial analysis.
+```{r}
+mybin(iter = 10000, n = 15, p = 0.6)
+```
+
+## Function Four: myncurve
+myncurve is an evolution of the previous functions, and it is a normal lower-tail probability distribution function. It shortcuts the work needed to arrive at the answer for this common type of problem, and creates a graph that highlights the lower-tail you just calculated.
+```{r}
+myncurve(mu = 7, sigma = 15, a = 3)
+```
+
+## Function Five: mycltp
+mycltp, somewhat like the last function, calculates and creates graphs of a distribution. However, this one involves the Poisson distribution using the Central Limit Theorem. The graphs it creates are histograms, barplots, and probability functions. It also involves curve lines for the change in mean. 
+```{r}
+mycltp(n = 5, iter = 10000, lambda = 7)
+```
+
+## Function Six: myboot
+myboot is a little like myplot in the way that it requires an outside argument to work. It needs a random normal sample distribution for x. When ran, this function creates a histogram using the bootstrap equation and visualizes the change in density as well as its xstat variable.
+```{r}
+sam <- rnorm(20, mean = 10, sd = 4)
+myboot(iter = 100000, x = sam, fun = "mean", alpha = 0.05, cx = 1.5)
+```
+
+## Function Seven: myntickets
+The final function of this package, myntickets solves an equation unique to overbooking a plane. Given the seats on the plane and the probability of overbooking combined with the probability that a person will show, it finds the most optimal number of tickets to sell as to prevent overbooking while maximizing profit. It also outputs two graphs, one using discrete functions and the other using continuous.
+```{r}
+myntickets(N = 300, gamma = 0.02, p = 0.95)
+```
+
+# Data
+This is the dataset included in this package.
+
+## Dataset: fire
+"fire" is the name for the FIREDAM dataset included in this package. This dataset examines the relationship between the distance (in miles) from firestations, and damage (in thousands of dollars) that the fires cause. In the end, it is a simple dataset, but it is useful, especially when it comes to testing and using the functions included in this package.
+```{r}
+head(fire)
+```
+
